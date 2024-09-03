@@ -12,7 +12,7 @@ services:
       - ch-02-02
 
   zookeeper-1:
-    image: zookeeper:latest
+    image: zookeeper:3.5
     restart: "unless-stopped"
     hostname: zookeeper-1
     environment:
@@ -26,7 +26,7 @@ services:
       retries: 10
 
   zookeeper-2:
-    image: zookeeper:latest
+    image: zookeeper:3.5
     restart: "unless-stopped"
     hostname: zookeeper-2
     environment:
@@ -40,7 +40,7 @@ services:
       retries: 10
 
   zookeeper-3:
-    image: zookeeper:latest
+    image: zookeeper:3.5
     restart: "unless-stopped"
     hostname: zookeeper-3
     environment:
