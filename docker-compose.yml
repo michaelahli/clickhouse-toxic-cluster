@@ -12,43 +12,46 @@ services:
       - ch-02-02
 
   zookeeper-1:
-    image: zookeeper:3.5
-    volumes:
-      - ./data/zookeeper:/data
-      - ./data/zookeeper-log:/datalog
+    image: zookeeper:latest
+    restart: "unless-stopped"
+    hostname: zookeeper-1
     environment:
-      ZOO_AUTOPURGE_PURGEINTERVAL: 1
       ZOO_MY_ID: 1
       ZOO_PORT: 2181
-      ZOO_SERVERS: server.1=toxiproxy:3011:3012;3010 server.2=toxiproxy:3014:3015;3013 server.3=toxiproxy:3017:3018;3016
-    depends_on:
-      - toxiproxy
+      ZOO_SERVERS: server.1=zookeeper-1:2888:3888;2181 server.2=toxiproxy:3014:3015;3013 server.3=toxiproxy:3017:3018;3016
+    healthcheck:
+      test: nc -z localhost 2181 || exit 1
+      interval: 10s
+      timeout: 10s
+      retries: 10
 
   zookeeper-2:
-    image: zookeeper:3.5
-    volumes:
-      - ./data/zookeeper:/data
-      - ./data/zookeeper-log:/datalog
+    image: zookeeper:latest
+    restart: "unless-stopped"
+    hostname: zookeeper-2
     environment:
-      ZOO_AUTOPURGE_PURGEINTERVAL: 1
       ZOO_MY_ID: 2
       ZOO_PORT: 2181
-      ZOO_SERVERS: server.1=toxiproxy:3011:3012;3010 server.2=toxiproxy:3014:3015;3013 server.3=toxiproxy:3017:3018;3016
-    depends_on:
-      - toxiproxy
+      ZOO_SERVERS: server.1=toxiproxy:3011:3012;3010 server.2=zookeeper-2:2888:3888;2181 server.3=toxiproxy:3017:3018;3016
+    healthcheck:
+      test: nc -z localhost 2181 || exit 1
+      interval: 10s
+      timeout: 10s
+      retries: 10
 
   zookeeper-3:
-    image: zookeeper:3.5
-    volumes:
-      - ./data/zookeeper:/data
-      - ./data/zookeeper-log:/datalog
+    image: zookeeper:latest
+    restart: "unless-stopped"
+    hostname: zookeeper-3
     environment:
-      ZOO_AUTOPURGE_PURGEINTERVAL: 1
       ZOO_MY_ID: 3
       ZOO_PORT: 2181
-      ZOO_SERVERS: server.1=toxiproxy:3011:3012;3010 server.2=toxiproxy:3014:3015;3013 server.3=toxiproxy:3017:3018;3016
-    depends_on:
-      - toxiproxy
+      ZOO_SERVERS: server.1=toxiproxy:3011:3012;3010 server.2=toxiproxy:3014:3015;3013 server.3=zookeeper-3:2888:3888;2181
+    healthcheck:
+      test: nc -z localhost 2181 || exit 1
+      interval: 10s
+      timeout: 10s
+      retries: 10
 
   ch-01-01:
     image: yandex/clickhouse-server:21.4.5-alpine
@@ -115,6 +118,3 @@ services:
       - ./toxiproxy/config.json:/opt/toxiproxy/config.json:ro
     ports:
       - "8474:8474"
-      - "8222:8222"
-      - "8121:8121"
-      - "8122:8122"
