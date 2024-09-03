@@ -107,22 +107,14 @@ services:
       - zookeeper-3
 
   toxiproxy:
-    image: "ghcr.io/shopify/toxiproxy"
-    entrypoint: > 
-      sh -c "/go/bin/toxiproxy-cli -h toxiproxy:8474 create zookeeper-1-cl --listen 0.0.0.0:3010 --upstream zookeeper-1:2181;
-      /go/bin/toxiproxy-cli -h toxiproxy:8474 create zookeeper-1-le --listen 0.0.0.0:3011 --upstream zookeeper-1:2888;
-      /go/bin/toxiproxy-cli -h toxiproxy:8474 create zookeeper-1-sync --listen 0.0.0.0:3012 --upstream zookeeper-1:3888;
-      /go/bin/toxiproxy-cli -h toxiproxy:8474 create zookeeper-2-cl --listen 0.0.0.0:3013 --upstream zookeeper-2:2181;
-      /go/bin/toxiproxy-cli -h toxiproxy:8474 create zookeeper-2-le --listen 0.0.0.0:3014 --upstream zookeeper-2:2888;
-      /go/bin/toxiproxy-cli -h toxiproxy:8474 create zookeeper-2-sync --listen 0.0.0.0:3015 --upstream zookeeper-2:3888;
-      /go/bin/toxiproxy-cli -h toxiproxy:8474 create zookeeper-3-cl --listen 0.0.0.0:3016 --upstream zookeeper-3:2181
-      /go/bin/toxiproxy-cli -h toxiproxy:8474 create zookeeper-3-le --listen 0.0.0.0:3017 --upstream zookeeper-3:2888;
-      /go/bin/toxiproxy-cli -h toxiproxy:8474 create zookeeper-3-sync --listen 0.0.0.0:3018 --upstream zookeeper-3:3888;
-      /go/bin/toxiproxy-cli -h toxiproxy:8474 create ch-01-01-cl --listen 0.0.0.0:3019 --upstream ch-01-01:8123;
-      /go/bin/toxiproxy-cli -h toxiproxy:8474 create ch-01-01-sync --listen 0.0.0.0:3020 --upstream ch-01-01:9000;
-      /go/bin/toxiproxy-cli -h toxiproxy:8474 create ch-01-02-cl --listen 0.0.0.0:3021 --upstream ch-01-02:8123;
-      /go/bin/toxiproxy-cli -h toxiproxy:8474 create ch-01-02-sync --listen 0.0.0.0:3022 --upstream ch-01-02:9000;
-      /go/bin/toxiproxy-cli -h toxiproxy:8474 create ch-02-01-cl --listen 0.0.0.0:3023 --upstream ch-02-01:8123;
-      /go/bin/toxiproxy-cli -h toxiproxy:8474 create ch-02-01-sync --listen 0.0.0.0:3024 --upstream ch-02-01:9000;
-      /go/bin/toxiproxy-cli -h toxiproxy:8474 create ch-02-02-cl --listen 0.0.0.0:3025 --upstream ch-02-02:8123;
-      /go/bin/toxiproxy-cli -h toxiproxy:8474 create ch-02-02-sync --listen 0.0.0.0:3026 --upstream ch-02-02:9000;"
+    container_name: toxiproxy
+    restart: unless-stopped
+    image: ghcr.io/shopify/toxiproxy
+    command: "-host 0.0.0.0 -config /opt/toxiproxy/config.json"
+    volumes:
+      - ./toxiproxy/config.json:/opt/toxiproxy/config.json:ro
+    ports:
+      - "8474:8474"
+      - "8222:8222"
+      - "8121:8121"
+      - "8122:8122"

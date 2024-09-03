@@ -1,0 +1,104 @@
+[
+    {
+        "name": "zookeeper-1-cl",
+        "listen": "[::]:3010",
+        "upstream": "zookeeper-1:2181",
+        "enabled": true
+    },
+    {
+        "name": "zookeeper-1-le",
+        "listen": "[::]:3011",
+        "upstream": "zookeeper-1:2888",
+        "enabled": true
+    },
+    {
+        "name": "zookeeper-1-sync",
+        "listen": "[::]:3012",
+        "upstream": "zookeeper-1:3888",
+        "enabled": true
+    },
+    {
+        "name": "zookeeper-2-cl",
+        "listen": "[::]:3013",
+        "upstream": "zookeeper-2:2181",
+        "enabled": true
+    },
+    {
+        "name": "zookeeper-2-le",
+        "listen": "[::]:3014",
+        "upstream": "zookeeper-2:2888",
+        "enabled": true
+    },
+    {
+        "name": "zookeeper-2-sync",
+        "listen": "[::]:3015",
+        "upstream": "zookeeper-2:3888",
+        "enabled": true
+    },
+    {
+        "name": "zookeeper-3-cl",
+        "listen": "[::]:3016",
+        "upstream": "zookeeper-3:2181",
+        "enabled": true
+    },
+    {
+        "name": "zookeeper-3-le",
+        "listen": "[::]:3017",
+        "upstream": "zookeeper-3:2888",
+        "enabled": true
+    },
+    {
+        "name": "zookeeper-3-sync",
+        "listen": "[::]:3018",
+        "upstream": "zookeeper-3:3888",
+        "enabled": true
+    },
+    {
+        "name": "ch-01-01-cl",
+        "listen": "[::]:3019",
+        "upstream": "ch-01-01:8123",
+        "enabled": true
+    },
+    {
+        "name": "ch-01-01-sync",
+        "listen": "[::]:3020",
+        "upstream": "ch-01-01:9000",
+        "enabled": true
+    },
+    {
+        "name": "ch-01-02-cl",
+        "listen": "[::]:3021",
+        "upstream": "ch-01-02:8123",
+        "enabled": true
+    },
+    {
+        "name": "ch-01-02-sync",
+        "listen": "[::]:3022",
+        "upstream": "ch-01-02:9000",
+        "enabled": true
+    },
+    {
+        "name": "ch-02-01-cl",
+        "listen": "[::]:3023",
+        "upstream": "ch-02-01:8123",
+        "enabled": true
+    },
+    {
+        "name": "ch-02-01-sync",
+        "listen": "[::]:3024",
+        "upstream": "ch-02-01:9000",
+        "enabled": true
+    },
+    {
+        "name": "ch-02-02-cl",
+        "listen": "[::]:3025",
+        "upstream": "ch-02-02:8123",
+        "enabled": true
+    },
+    {
+        "name": "ch-02-02-sync",
+        "listen": "[::]:3026",
+        "upstream": "ch-02-02:9000",
+        "enabled": true
+    }
+]
